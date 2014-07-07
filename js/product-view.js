@@ -8,6 +8,7 @@
 		item: null,
 		threesixtyImages: null,
 		staticImages: null,
+		documents: null,
 
 		//Image containers
 		viewerContainer: null,
@@ -16,7 +17,8 @@
 
 		navigationContainer: null,
 		zoomContainer: null,
-		viewPortHandler: null,
+
+		//viewPortHandler: null,
 		staticImageButtonList: null,
 
 		sliderControl: null,
@@ -88,7 +90,7 @@
 					self.sliderControl = $(document.createElement('div'))
 						.appendTo(sliderContainer);
 
-					self.viewPortHandler = !$.browser.msie ? $('<div class="test-viewport"></div>').appendTo(self.threesixtyImageList) : $('');
+					//self.viewPortHandler = !$.browser.msie ? $('<div class="test-viewport"></div>').appendTo(self.threesixtyImageList) : $('');
 
 					//Position the container
 					var positionLeft = windowWidth / 2 - spContainer.width() / 2;
@@ -120,9 +122,17 @@
 				self.setupStaticImages();
 			}
 
+			if(self.item.documents){
+				self.documents = self.item.documents;
+				self.setupDocuments();
+			}
+
 			self.spContainer.on('show-image', function(){
 				self.threesixtyImageList.hide();
 				self.staticImageList.hide();
+
+				self.navigationContainer.find('.threesixty-button').removeClass('selected');
+				self.staticImageButtonList.find('a').removeClass('selected');
 			});
 		},
 
@@ -193,12 +203,13 @@
 			//Create the navigator handler
 			var threesixtyButton = $(document.createElement('a'))
 				.appendTo(self.navigationContainer)
-				.addClass('threesixty-button')
+				.addClass('threesixty-button selected')
 				.css('background-image', 'linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8)), URL(' + imageList[0] + ')')
 				.append('<span>360°</span>')
 				//on click, show the image on the image-container
 				.on('click', function(){
 					if(self.showing != 'threesixty'){
+						$(this).addClass('selected');
 						self.spContainer.trigger('show-image');
 						self.threesixtyImageList.show();
 
@@ -228,7 +239,6 @@
 					.appendTo(self.staticImageButtonList)
 					//on click, show the image on the image-container
 					.on('click', function(){
-						var index = $(this).attr('index');
 
 						if(self.showing != 'static'){
 							self.spContainer.trigger('show-image');
@@ -239,6 +249,9 @@
 
 				    		self.showing = 'static';
 						}
+
+						self.staticImageButtonList.find('a').removeClass('selected');
+						var index = $(this).addClass('selected').attr('index');
 
 						self.staticImageList.find('img').fadeOut();
 						self.staticImageList.find('[index=' + index +']').fadeIn();
@@ -257,12 +270,35 @@
 		},
 
 		/**
+		 * To setup the list of documents
+		 */
+		setupDocuments: function(){
+			var self = this;
+			var documentList = self.documents;
+
+			self.documentButtonList = $(document.createElement('div'))
+				.appendTo(self.navigationContainer)
+				.addClass('document-button-list');
+						
+			//Setup the viewer components
+			_.each(documentList, function(documentItem, index){
+				//Create the images access
+				var documentButton = $(document.createElement('a'))
+					.attr('href', documentItem.url)
+					.attr('target', '_BLANK')
+					.text(documentItem.title)
+					.appendTo(self.documentButtonList);
+
+			});
+		},
+
+		/**
 		 * Enables the zoom functionality over the img item.
 		 */
 		setZoomable: function(img){
 			var self = this;
 
-			var viewPortHandler = self.viewPortHandler;
+			//var viewPortHandler = self.viewPortHandler;
 
 			var zoomContainer = self.zoomContainer;
 
@@ -317,11 +353,14 @@
 
 				zoomContainer.css('background-position', (relativeX * imageNaturalWidth * -1) + 'px ' + (relativeY * imageNaturalHeight * -1) + 'px');
 			}).on('mouseenter', function(){
-				viewPortHandler.fadeIn('slow');
+				//viewPortHandler.fadeIn('slow');
+				//setTimeout(function(){
 				zoomContainer.fadeIn();
+				//}, 500);
+
 			}).on('mouseleave', function(){
 				zoomContainer.fadeOut();
-				viewPortHandler.fadeOut();
+				//viewPortHandler.fadeOut();
 			});
 		}
 	};

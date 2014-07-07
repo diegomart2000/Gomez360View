@@ -21,11 +21,25 @@
       ///-- ITEM VIEW MOCK START
       var itemView = {
 
+        //Three Sixty Degrees View, object model:
+        //threesixtyImages: Array of 360 frames (optional, if present will enable the 360 view)
+        // {
+        //    img: //frame image location
+        //    imgLarge: //zoomed image location (optional, if present will enable the zoom)
+        // }
+        // In following example, first frame has no zoom        
         threesixtyImages: [
           {img: '1.png'},
           {img: '2.png', imgLarge: '2.png'}, {img: '3.png', imgLarge: '3.png'}, {img: '4.png', imgLarge: '4.png'}, {img: '5.png', imgLarge: '5.png'}, {img: '6.png', imgLarge: '6.png'}, {img: '7.png', imgLarge: '7.png'}, {img: '8.png', imgLarge: '8.png'}, {img: '9.png', imgLarge: '9.png'}, {img: '10.png', imgLarge: '10.png'}, {img: '11.png', imgLarge: '11.png'}, {img: '12.png', imgLarge: '12.png'}, {img: '13.png', imgLarge: '13.png'}, {img: '14.png', imgLarge: '14.png'}, {img: '15.png', imgLarge: '15.png'}, {img: '16.png', imgLarge: '16.png'}, {img: '17.png', imgLarge: '17.png'}, {img: '18.png', imgLarge: '18.png'}, {img: '19.png', imgLarge: '19.png'}, {img: '20.png', imgLarge: '20.png'}, {img: '21.png', imgLarge: '21.png'}, {img: '22.png', imgLarge: '22.png'}, {img: '23.png', imgLarge: '23.png'}, {img: '24.png', imgLarge: '24.png'}, {img: '25.png', imgLarge: '25.png'}, {img: '26.png', imgLarge: '26.png'}, {img: '27.png', imgLarge: '27.png'}, {img: '28.png', imgLarge: '28.png'}, {img: '29.png', imgLarge: '29.png'}, {img: '30.png', imgLarge: '30.png'}, {img: '31.png', imgLarge: '31.png'}, {img: '32.png', imgLarge: '32.png'}, {img: '33.png', imgLarge: '33.png'}, {img: '34.png', imgLarge: '34.png'}, {img: '35.png', imgLarge: '35.png'}, {img: '36.png', imgLarge: '36.png'}, {img: '37.png', imgLarge: '37.png'}, {img: '38.png', imgLarge: '38.png'}, {img: '39.png', imgLarge: '39.png'}, {img: '40.png', imgLarge: '40.png'}, {img: '41.png', imgLarge: '41.png'}, {img: '42.png', imgLarge: '42.png'}, {img: '43.png', imgLarge: '43.png'}, {img: '44.png', imgLarge: '44.png'}, {img: '45.png', imgLarge: '45.png'}, {img: '46.png', imgLarge: '46.png'}, {img: '47.png', imgLarge: '47.png'}, {img: '48.png', imgLarge: '48.png'}, {img: '49.png', imgLarge: '49.png'}, {img: '50.png', imgLarge: '50.png'}, {img: '51.png', imgLarge: '51.png'}, {img: '52.png', imgLarge: '52.png'}
           ],
 
+        //Static images View, object model:
+        //staticImages: Array of static images (optional, if present will enable the static image list)
+        // {
+        //    img: //static normal sized image location
+        //    imgLarge: //zoomed image location (optional, if present will enable the zoom)
+        // }
+        // In following example, first image has no zoom
         staticImages: [
           {img: '1.png'},
           {img: '2.png', imgLarge: '2.png'},
@@ -35,6 +49,17 @@
           {img: '6.png', imgLarge: '6.png'},
           {img: '7.png', imgLarge: '7.png'},
           {img: '8.png', imgLarge: '8.png'}
+        ],
+
+        //Document links, object model:
+        //documents: Array of documents (optional, if present will enable the documents list)
+        // {
+        //    title: //that will be displayed on the files list
+        //    url: //resource location
+        // }
+        documents: [
+          {title: 'Product sheet', url: 'http://www.futurebots.com/16f877.pdf'},
+          {title: 'Users Guide', url: 'http://www.futurebots.com/16f877.pdf'}
         ]
       };
 
