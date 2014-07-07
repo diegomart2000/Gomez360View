@@ -214,6 +214,8 @@
 						self.threesixtyImageList.show();
 
 			    		self.showing = 'threesixty';
+
+			    		threesixtyButton.addClass('selected');
 					}
 				});
 		},
@@ -250,11 +252,15 @@
 				    		self.showing = 'static';
 						}
 
-						self.staticImageButtonList.find('a').removeClass('selected');
-						var index = $(this).addClass('selected').attr('index');
+						var el = $(this);
 
-						self.staticImageList.find('img').fadeOut();
-						self.staticImageList.find('[index=' + index +']').fadeIn();
+						if(!el.hasClass('selected')){
+							self.staticImageButtonList.find('a').removeClass('selected');
+							var index = el.addClass('selected').attr('index');
+
+							self.staticImageList.find('img').fadeOut();
+							self.staticImageList.find('[index=' + index +']').fadeIn();
+						}
 					});
 
 				var img = $(document.createElement('img'))
