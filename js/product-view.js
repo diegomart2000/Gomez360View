@@ -236,6 +236,7 @@
 				//Create the images access
 				var imgButton = $(document.createElement('a'))
 					.css('background-image', 'URL(' + imageItem.img + ')')
+					.addClass(imageItem.isComparative ? 'comparative' : '')
 					.attr('index', index)
 
 					.appendTo(self.staticImageButtonList)
@@ -304,6 +305,9 @@
 		setZoomable: function(img){
 			var self = this;
 
+			//Check whether the zoom was disabled or not
+			if(self.item.zoomDisabled) return;
+			
 			//var viewPortHandler = self.viewPortHandler;
 
 			var zoomContainer = self.zoomContainer;

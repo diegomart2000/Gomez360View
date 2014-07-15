@@ -20,6 +20,9 @@
 
       ///-- ITEM VIEW MOCK START
       var itemView = {
+	  
+		//Uncomment, to disable zoom on all items
+		//zoomDisabled: true,
 
         //Three Sixty Degrees View, object model:
         //threesixtyImages: Array of 360 frames (optional, if present will enable the 360 view)
@@ -48,7 +51,7 @@
           {img: '5.png', imgLarge: '5.png'},
           {img: '6.png', imgLarge: '6.png'},
           {img: '7.png', imgLarge: '7.png'},
-          {img: '8.png', imgLarge: '8.png'}
+          {img: '8.png', imgLarge: '8.png', isComparative: true} //This element is a comparative, will be highlighted on the right panel
         ],
 
         //Document links, object model:
