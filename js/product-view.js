@@ -329,8 +329,8 @@
 				var imgUrl = img.attr('data-zoom-image');
 
 				if(imgUrl != zoomCurrentImgURL){
+					console.log('current [%s] - new [%s]', zoomCurrentImgURL, imgUrl);
 					zoomCurrentImgURL = imgUrl;
-					zoomContainer.css('background-image', 'URL(' + zoomCurrentImgURL + ')');
 
 					imageNaturalWidth = img.get(0).naturalWidth;
 					imageNaturalHeight = img.get(0).naturalHeight;
@@ -345,6 +345,7 @@
 					//$('.test-viewport').width(relativeWidth);
 					//$('.test-viewport').height(relativeHeight);
 				};
+				zoomContainer.css('background-image', 'URL(' + imgUrl + ')');
 
 				var imgPostion = img.position();
 
@@ -358,8 +359,8 @@
 
 				//$('.test-viewport').css('left', left + 'px').css('top', (top + img.offset().top)+ 'px');
 
-				console.log('x: [%s] - y [%s] - relative x: %s\% - relative y: %s\%', x, y, relativeX, relativeY);
-				console.log(event.target + 'left %s top %s' , left,  top  );
+				//console.log('x: [%s] - y [%s] - relative x: %s\% - relative y: %s\%', x, y, relativeX, relativeY);
+				//console.log(event.target + 'left %s top %s' , left,  top  );
 
 				zoomContainer.css('background-position', (relativeX * imageNaturalWidth * -1) + 'px ' + (relativeY * imageNaturalHeight * -1) + 'px');
 			}).on('mouseenter', function(){
