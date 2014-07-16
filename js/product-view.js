@@ -4,6 +4,9 @@
  */
 (function( $ ){
 	var methods = {
+		//To indicate that all componens have been initialized
+		readyState: 0, 
+		
 		//Item objetcs
 		item: null,
 		threesixtyImages: null,
@@ -17,6 +20,7 @@
 
 		navigationContainer: null,
 		zoomContainer: null,
+		mustShowZoom: false,
 
 		//viewPortHandler: null,
 		staticImageButtonList: null,
@@ -114,12 +118,15 @@
 				self.threesixtyImages = self.item.threesixtyImages;
 				self.setupThreeSixty();
 			}else{
+				self.readyState += 100; //If not 360, set ready
 				$('.spinner').hide();
 			}
 
 			if(self.item.staticImages){
 				self.staticImages = self.item.staticImages;
 				self.setupStaticImages();
+			}else{
+				self.readyState += 100; //If not static, set ready this part
 			}
 
 			if(self.item.documents){
@@ -176,6 +183,9 @@
 								}
 								
 							});
+							
+							self.readyState += 100; //Set 360 ready
+
 					    }, 50);
 				    }
 			    });
@@ -208,7 +218,7 @@
 				.append('<span>360°</span>')
 				//on click, show the image on the image-container
 				.on('click', function(){
-					if(self.showing != 'threesixty'){
+					if(self.showing != 'threesixty' && self.readyState == 200){
 						$(this).addClass('selected');
 						self.spContainer.trigger('show-image');
 						self.threesixtyImageList.show();
@@ -235,14 +245,15 @@
 			_.each(imageList, function(imageItem, index){
 				//Create the images access
 				var imgButton = $(document.createElement('a'))
-					.css('background-image', 'URL(' + imageItem.img + ')')
+					.css('background-image', 'URL(' + (imageItem.imgThumb ? imageItem.imgThumb : imageItem.img) + ')')
 					.addClass(imageItem.isComparative ? 'comparative' : '')
 					.attr('index', index)
 
 					.appendTo(self.staticImageButtonList)
 					//on click, show the image on the image-container
 					.on('click', function(){
-
+						if(self.readyState != 200) return; //If not ready... do nothing
+						
 						if(self.showing != 'static'){
 							self.spContainer.trigger('show-image');
 							self.staticImageList.show();
@@ -274,6 +285,8 @@
 					self.setZoomable(img);
 				}
 			});
+			
+			self.readyState += 100; //Set static ready
 		},
 
 		/**
@@ -312,8 +325,6 @@
 
 			var zoomContainer = self.zoomContainer;
 
-			var zoomCurrentImgURL = '';
-
 			var viewportWidth = zoomContainer.width();
 			var viewportHeight = zoomContainer.height();
 			var imageNaturalWidth = 0;
@@ -326,11 +337,12 @@
 
 			//if this image has a large image, create the zoom component
 			img.on('mousemove', function(event){
-				var imgUrl = img.attr('data-zoom-image');
+				var imgUrl = 'URL(' + img.attr('data-zoom-image')  + ')';
+				var zoomCurrentImgURL = zoomContainer.css('background-image');
 
-				if(imgUrl != zoomCurrentImgURL){
+				if(imgUrl.toLowerCase() != zoomCurrentImgURL.toLowerCase()){
 					console.log('current [%s] - new [%s]', zoomCurrentImgURL, imgUrl);
-					zoomCurrentImgURL = imgUrl;
+					zoomContainer.css('background-image', imgUrl);
 
 					imageNaturalWidth = img.get(0).naturalWidth;
 					imageNaturalHeight = img.get(0).naturalHeight;
@@ -345,7 +357,7 @@
 					//$('.test-viewport').width(relativeWidth);
 					//$('.test-viewport').height(relativeHeight);
 				};
-				zoomContainer.css('background-image', 'URL(' + imgUrl + ')');
+				
 
 				var imgPostion = img.position();
 
@@ -365,13 +377,16 @@
 				zoomContainer.css('background-position', (relativeX * imageNaturalWidth * -1) + 'px ' + (relativeY * imageNaturalHeight * -1) + 'px');
 			}).on('mouseenter', function(){
 				//viewPortHandler.fadeIn('slow');
-				//setTimeout(function(){
-				zoomContainer.fadeIn();
-				//}, 500);
+				setTimeout(function(){
+					if(self.mustShowZoom) zoomContainer.fadeIn();
+				}, 400);
 
+				self.mustShowZoom = true;
+				
 			}).on('mouseleave', function(){
 				zoomContainer.fadeOut();
 				//viewPortHandler.fadeOut();
+				self.mustShowZoom = false;
 			});
 		}
 	};

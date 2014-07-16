@@ -40,18 +40,19 @@
         //staticImages: Array of static images (optional, if present will enable the static image list)
         // {
         //    img: //static normal sized image location
-        //    imgLarge: //zoomed image location (optional, if present will enable the zoom)
+        //    imgThumb: //Thumbnail image for navigation buttons (optional, if not present img will be used as button)
+		//	  imgLarge: //zoomed image location (optional, if present will enable the zoom)
         // }
         // In following example, first image has no zoom
         staticImages: [
           {img: '1.png'},
-          {img: '2.png', imgLarge: '2.png'},
-          {img: '3.png', imgLarge: '3.png'},
-          {img: '4.png', imgLarge: '4.png'},
-          {img: '5.png', imgLarge: '5.png'},
-          {img: '6.png', imgLarge: '6.png'},
-          {img: '7.png', imgLarge: '7.png'},
-          {img: '8.png', imgLarge: '8.png', isComparative: true} //This element is a comparative, will be highlighted on the right panel
+          {img: '2.png', imgLarge: '2.png', imgThumb: '2.png'},
+          {img: '3.png', imgLarge: '3.png', imgThumb: '3.png'},
+          {img: '4.png', imgLarge: '4.png', imgThumb: '4.png'},
+          {img: '5.png', imgLarge: '5.png', imgThumb: '5.png'},
+          {img: '6.png', imgLarge: '6.png', imgThumb: '6.png'},
+          {img: '7.png', imgLarge: '7.png', imgThumb: '7.png'},
+          {img: '8.png', imgLarge: '8.png', imgThumb: '8.png', isComparative: true} //This element is a comparative, will be highlighted on the right panel
         ],
 
         //Document links, object model:
@@ -89,6 +90,11 @@
             itemView.staticImages[i].imgLarge =
               "https://raw.github.com/creativeaura/threesixty-slider/master/demo/img/car/" + 
               itemView.staticImages[i].imgLarge;
+			  
+		  if(itemView.staticImages[i].imgThumb)
+            itemView.staticImages[i].imgThumb =
+              "https://raw.github.com/creativeaura/threesixty-slider/master/demo/img/car/" + 
+              itemView.staticImages[i].imgThumb;
         }
       }
       ///-- END OF MOCK
