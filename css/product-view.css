@@ -20,7 +20,7 @@ section {width: 920px; height: 500px; padding: 20px; border: 1px solid #CCC; pos
 .image-viewer .static-image-list {display: none; position: relative;}
 .image-viewer .static-image-list img {position: absolute; display: none; width: 100%; height: auto;}
 
-.control-container {width: 300px; margin: 20px auto; display: none;}
+.control-container {width: 300px; margin: 25px auto 0 auto; display: none;}
 
 /* Image navigation sidebar */
 .navigation-container {float: left; width: 308px; height: 100%; margin-left: 10px; position: relative;}
